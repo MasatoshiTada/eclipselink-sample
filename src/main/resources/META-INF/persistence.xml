@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd ">
+    <persistence-unit name="samplePU" transaction-type="RESOURCE_LOCAL">
+        <class>com.example.entity.Sample</class>
+        <properties>
+            <!-- =================== JDBCの設定 ================== -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+
+            <!-- =================== TODO 問題のプロパティ？ =================== -->
+            <property name="eclipselink.validate-existence" value="true"/>
+
+            <!-- =================== DDL実行の設定 ================== -->
+            <!-- EntityManagerFactory生成時に、テーブルをDROP+CREATEする -->
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <!-- 実行時にテーブルを生成するときにCREATE文を利用する -->
+            <property name="javax.persistence.schema-generation.create-source" value="script"/>
+            <!-- CREATE文のパス -->
+            <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/sql/create.sql"/>
+            <!-- 実行時にテーブルを生成するときにDROP文を利用する -->
+            <property name="javax.persistence.schema-generation.drop-source" value="script"/>
+            <!-- DROP文のパス -->
+            <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/sql/drop.sql"/>
+            <!-- INSERT文のパス -->
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/sql/data.sql"/>
+
+            <!-- =================== ログ出力の設定 ================== -->
+            <!-- ログレベルをFINE以上（FINE,FINER,FINEST,ALL）にすると、ログにSQLが出力される-->
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <!-- SQLログにパラメータを出力する -->
+            <property name="eclipselink.logging.parameters" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
